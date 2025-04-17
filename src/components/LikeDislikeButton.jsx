@@ -3,7 +3,6 @@ import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import { IconButton, Stack, Typography } from '@mui/material';
-import React from 'react';
 import { useSelector } from 'react-redux';
 
 const LikeDislikeButton = ({ upVotes, downVotes, onUpVote, onDownVote, onNeutralizeVote }) => {

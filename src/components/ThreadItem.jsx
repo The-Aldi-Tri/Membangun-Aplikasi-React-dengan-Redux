@@ -1,6 +1,5 @@
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 import { Chip, Divider, Link, Stack, Typography } from '@mui/material';
-import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import {

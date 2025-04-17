@@ -1,4 +1,3 @@
-import React from 'react';
 import ProtectedLayout from '../Layouts/ProtectedLayout';
 import NewThread from '../components/NewThread';
 

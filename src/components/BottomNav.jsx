@@ -2,7 +2,6 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import ForumIcon from '@mui/icons-material/Forum';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import { AppBar, BottomNavigation, BottomNavigationAction } from '@mui/material';
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router';
 

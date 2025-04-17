@@ -1,5 +1,4 @@
 import { Box, Container, Paper } from '@mui/material';
-import React from 'react';
 import LoadingBar from 'react-redux-loading-bar';
 import BottomNav from '../components/BottomNav';
 import Header from '../components/Header';

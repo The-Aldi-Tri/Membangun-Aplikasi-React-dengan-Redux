@@ -1,6 +1,5 @@
 import LoginIcon from '@mui/icons-material/Login';
 import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
-import React from 'react';
 import { useSelector } from 'react-redux';
 import LoadingBar from 'react-redux-loading-bar';
 import { useNavigate } from 'react-router';
