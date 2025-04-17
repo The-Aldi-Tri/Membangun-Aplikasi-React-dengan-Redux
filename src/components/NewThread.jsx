@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { useInput } from '../hooks/useInput';
-import { asyncAddThread } from '../states/threads/action';
+import { asyncAddThread } from '../states/threads';
 
 const NewThread = () => {
   const [title, onTitleChange] = useInput('');

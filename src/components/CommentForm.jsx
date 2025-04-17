@@ -2,7 +2,7 @@ import { Button, Stack, TextField } from '@mui/material';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useInput } from '../hooks/useInput';
-import { asyncAddThreadComment } from '../states/threadDetail/action';
+import { asyncAddComment } from '../states/threadDetail';
 
 const CommentForm = () => {
   const [comment, onCommentChange] = useInput('');
@@ -12,7 +12,7 @@ const CommentForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(asyncAddThreadComment({ content: comment, threadId: threadDetail.id }));
+    dispatch(asyncAddComment({ content: comment, threadId: threadDetail.id }));
   };
 
   return (

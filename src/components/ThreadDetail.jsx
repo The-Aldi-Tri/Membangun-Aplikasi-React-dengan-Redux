@@ -6,7 +6,7 @@ import {
   asyncToggleDownVoteThreadDetail,
   asyncToggleNeutralizeVoteThreadDetail,
   asyncToggleUpVoteThreadDetail,
-} from '../states/threadDetail/action';
+} from '../states/threadDetail';
 import AuthorAndTimeElapsed from './AuthorAndTimeElapsed';
 import Comment from './Comment';
 import CommentForm from './CommentForm';
@@ -18,6 +18,10 @@ const ThreadDetail = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  if (!threadDetail) {
+    return null;
+  }
 
   return (
     <Stack spacing={2}>
@@ -52,8 +56,10 @@ const ThreadDetail = () => {
         {authUser ? (
           <CommentForm />
         ) : (
-          <Stack direction="row" spacing={0.5}>
-            <Link onClick={() => navigate('/login')}>Login</Link>
+          <Stack direction="row" spacing={0.5} alignItems="center">
+            <Link onClick={() => navigate('/login')} sx={{ '&:hover': { cursor: 'pointer' } }}>
+              Login
+            </Link>
             <Typography>untuk memberi komentar</Typography>
           </Stack>
         )}

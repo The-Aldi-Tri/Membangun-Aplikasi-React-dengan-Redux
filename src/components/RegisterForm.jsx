@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { useInput } from '../hooks/useInput';
-import { asyncRegisterUser } from '../states/authUser/action';
+import { asyncRegisterUser } from '../states/authUser';
 
 const RegisterForm = () => {
   const [name, onNameChange] = useInput('');
@@ -71,7 +71,7 @@ const RegisterForm = () => {
         <Box sx={{ textAlign: 'left' }}>
           <Typography variant="body2">
             Sudah punya akun?{' '}
-            <Link underline="hover" onClick={() => navigate('/login')}>
+            <Link onClick={() => navigate('/login')} sx={{ '&:hover': { cursor: 'pointer' } }}>
               Login di sini.
             </Link>
           </Typography>

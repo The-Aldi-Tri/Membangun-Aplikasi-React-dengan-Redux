@@ -2,10 +2,10 @@ import { Avatar, Box, Divider, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  asyncNeutralizeVoteComment,
   asyncToggleDownVoteComment,
+  asyncToggleNeutralizeVoteComment,
   asyncToggleUpVoteComment,
-} from '../states/threadDetail/action';
+} from '../states/threadDetail';
 import { getTimeElapsed } from '../utils/getTimeElapsed';
 import LikeDislikeButton from './LikeDislikeButton';
 
@@ -18,8 +18,8 @@ const Comment = ({ comment }) => {
     <Box>
       <Stack spacing={1}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Stack direction="row" spacing={0.5}>
-            <Avatar sx={{ height: '1em', width: '1em' }} alt={comment.owner.name + ' Avatar'} />
+          <Stack direction="row" spacing={0.5} alignItems="center">
+            <Avatar sx={{ height: '1em', width: '1em' }} src={comment.owner.avatar} />
             <Typography>{comment.owner.name}</Typography>
           </Stack>
           <Typography variant="body2">{getTimeElapsed(comment.createdAt)}</Typography>
@@ -38,7 +38,10 @@ const Comment = ({ comment }) => {
           }
           onNeutralizeVote={() =>
             dispatch(
-              asyncNeutralizeVoteComment({ threadId: threadDetail.id, commentId: comment.id }),
+              asyncToggleNeutralizeVoteComment({
+                threadId: threadDetail.id,
+                commentId: comment.id,
+              }),
             )
           }
         />

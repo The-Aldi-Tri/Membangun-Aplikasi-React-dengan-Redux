@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router';
 import {
   asyncToggleDownVoteThread,
   asyncToggleNeutralizeVoteThread,
-  asyncToggleUpvoteThread,
-} from '../states/threads/action';
+  asyncToggleUpVoteThread,
+} from '../states/threads';
 import { truncateText } from '../utils/truncateText';
 import AuthorAndTimeElapsed from './AuthorAndTimeElapsed';
 import LikeDislikeButton from './LikeDislikeButton';
@@ -21,7 +21,10 @@ const ThreadItem = ({ thread }) => {
   return (
     <Stack key={thread.id} spacing={0.5}>
       <Chip label={'#' + thread.category} variant="outlined" sx={{ width: 'fit-content' }} />
-      <Link onClick={() => navigate(`/threads/${thread.id}`)}>
+      <Link
+        onClick={() => navigate(`/threads/${thread.id}`)}
+        sx={{ '&:hover': { cursor: 'pointer' } }}
+      >
         <Typography variant="body1">{thread.title}</Typography>
       </Link>
       <Typography variant="body2">{truncateText(thread.body)}</Typography>
@@ -29,7 +32,7 @@ const ThreadItem = ({ thread }) => {
         <LikeDislikeButton
           upVotes={thread.upVotesBy}
           downVotes={thread.downVotesBy}
-          onUpVote={() => dispatch(asyncToggleUpvoteThread(thread.id))}
+          onUpVote={() => dispatch(asyncToggleUpVoteThread(thread.id))}
           onDownVote={() => dispatch(asyncToggleDownVoteThread(thread.id))}
           onNeutralizeVote={() => dispatch(asyncToggleNeutralizeVoteThread(thread.id))}
         />

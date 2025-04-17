@@ -4,7 +4,7 @@ import { Avatar, IconButton, ListItemIcon, Menu, MenuItem, Stack, Typography } f
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { asyncUnsetAuthUser } from '../states/authUser/action';
+import { asyncUnsetAuthUser } from '../states/authUser';
 
 const AvatarNameMenu = () => {
   const authUser = useSelector((state) => state.authUser);

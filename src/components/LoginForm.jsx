@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { useInput } from '../hooks/useInput';
-import { asyncSetAuthUser } from '../states/authUser/action';
+import { asyncSetAuthUser } from '../states/authUser';
 
 const LoginForm = () => {
   const [email, onEmailChange] = useInput('');
@@ -60,7 +60,7 @@ const LoginForm = () => {
         <Box sx={{ textAlign: 'left' }}>
           <Typography variant="body2">
             Belum punya akun?{' '}
-            <Link underline="hover" onClick={() => navigate('/register')}>
+            <Link onClick={() => navigate('/register')} sx={{ '&:hover': { cursor: 'pointer' } }}>
               Daftar di sini.
             </Link>
           </Typography>
