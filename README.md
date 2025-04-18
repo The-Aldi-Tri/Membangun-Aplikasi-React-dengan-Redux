@@ -2,6 +2,8 @@
 
 Proyek ini adalah submission pertama pada course **Menjadi React Web Developer Expert** di [Dicoding](dicoding.com).
 
+- Hasil Submission: :star::star::star::star::star:
+
 ## Tujuan Akhir
 
 Buatlah aplikasi React bertemakan “Aplikasi Forum Diskusi” yang memanfaatkan API dari [Dicoding Forum API](https://forum-api.dicoding.dev/v1/). Contoh aplikasi: https://dicoding-forum-app.vercel.app/
