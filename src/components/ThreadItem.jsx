@@ -1,7 +1,8 @@
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
-import { Chip, Divider, Link, Stack, Typography } from '@mui/material';
+import { Chip, Divider, Stack, Typography } from '@mui/material';
+import parse from 'html-react-parser';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import {
   asyncToggleDownVoteThread,
   asyncToggleNeutralizeVoteThread,
@@ -15,20 +16,16 @@ const ThreadItem = ({ thread }) => {
   const users = useSelector((state) => state.users);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   return (
     <Stack key={thread.id} spacing={0.5}>
       <Chip label={'#' + thread.category} variant="outlined" sx={{ width: 'fit-content' }} />
-      <Link
-        onClick={() => navigate(`/threads/${thread.id}`)}
-        sx={{ '&:hover': { cursor: 'pointer' } }}
-      >
+      <Link to={`/threads/${thread.id}`}>
         <Typography variant="h5" fontWeight="bold">
           {thread.title}
         </Typography>
       </Link>
-      <Typography variant="body2">{truncateText(thread.body)}</Typography>
+      <Typography variant="body2">{parse(truncateText(thread.body))}</Typography>
       <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
         <LikeDislikeButton
           upVotes={thread.upVotesBy}

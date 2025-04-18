@@ -1,4 +1,5 @@
 import { Avatar, Box, Divider, Stack, Typography } from '@mui/material';
+import parse from 'html-react-parser';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   asyncToggleDownVoteComment,
@@ -23,7 +24,7 @@ const Comment = ({ comment }) => {
           </Stack>
           <Typography variant="body2">{getTimeElapsed(comment.createdAt)}</Typography>
         </Box>
-        <Typography>{comment.content}</Typography>
+        <Typography>{parse(comment.content)}</Typography>
         <LikeDislikeButton
           upVotes={comment.upVotesBy}
           downVotes={comment.downVotesBy}

@@ -1,8 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, Link, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import * as yup from 'yup';
 import { asyncSetAuthUser } from '../states/authUser';
 
@@ -28,7 +28,6 @@ const LoginForm = () => {
   });
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     dispatch(asyncSetAuthUser(data));
@@ -86,10 +85,7 @@ const LoginForm = () => {
         </Button>
         <Box sx={{ textAlign: 'left' }}>
           <Typography variant="body2">
-            Belum punya akun?{' '}
-            <Link onClick={() => navigate('/register')} sx={{ '&:hover': { cursor: 'pointer' } }}>
-              Daftar di sini.
-            </Link>
+            Belum punya akun? <Link to={'/register'}>Daftar di sini.</Link>
           </Typography>
         </Box>
       </Stack>

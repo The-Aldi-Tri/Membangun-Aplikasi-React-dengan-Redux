@@ -1,6 +1,7 @@
-import { Chip, Link, Stack, Typography } from '@mui/material';
+import { Chip, Stack, Typography } from '@mui/material';
+import parse from 'html-react-parser';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import {
   asyncToggleDownVoteThreadDetail,
   asyncToggleNeutralizeVoteThreadDetail,
@@ -14,8 +15,6 @@ import LikeDislikeButton from './LikeDislikeButton';
 const ThreadDetail = () => {
   const threadDetail = useSelector((state) => state.threadDetail);
   const authUser = useSelector((state) => state.authUser);
-
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   if (!threadDetail) {
@@ -33,7 +32,7 @@ const ThreadDetail = () => {
         <Typography variant="h4" fontWeight="bold">
           {threadDetail.title}
         </Typography>
-        <Typography variant="body1">{threadDetail.body}</Typography>
+        <Typography variant="body1">{parse(threadDetail.body)}</Typography>
         <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
           <LikeDislikeButton
             upVotes={threadDetail.upVotesBy}
@@ -56,9 +55,7 @@ const ThreadDetail = () => {
           <CommentForm />
         ) : (
           <Stack direction="row" spacing={0.5} alignItems="center">
-            <Link onClick={() => navigate('/login')} sx={{ '&:hover': { cursor: 'pointer' } }}>
-              Login
-            </Link>
+            <Link to={'/login'}>Login</Link>
             <Typography>untuk memberi komentar</Typography>
           </Stack>
         )}
