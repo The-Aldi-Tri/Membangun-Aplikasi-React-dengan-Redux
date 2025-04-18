@@ -1,33 +1,58 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Stack, TextField } from '@mui/material';
+import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { useInput } from '../hooks/useInput';
+import * as yup from 'yup';
 import { asyncAddComment } from '../states/threadDetail';
 
+const commentSchema = yup.object({
+  comment: yup.string().min(3).required(),
+});
+
 const CommentForm = () => {
-  const [comment, onCommentChange] = useInput('');
+  const {
+    handleSubmit,
+    formState: { errors },
+    control,
+  } = useForm({
+    resolver: yupResolver(commentSchema),
+    mode: 'onChange',
+  });
+
   const threadDetail = useSelector((state) => state.threadDetail);
 
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(asyncAddComment({ content: comment, threadId: threadDetail.id }));
+  const onSubmit = (data) => {
+    dispatch(asyncAddComment({ content: data.comment, threadId: threadDetail.id }));
   };
 
   return (
-    <Stack spacing={0.5}>
-      <TextField
-        value={comment}
-        onChange={onCommentChange}
+    <Stack spacing={0.5} component={'form'} onSubmit={handleSubmit(onSubmit)} noValidate>
+      <Controller
         name="comment"
-        id="comment"
-        variant="outlined"
-        fullWidth
-        multiline
-        rows={4}
-        placeholder="Tulis komentar Anda"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <TextField
+            label="Comment"
+            fullWidth
+            multiline
+            rows={4}
+            variant="outlined"
+            placeholder="Tulis komentar anda"
+            {...field}
+            error={!!errors.comment}
+            helperText={errors.comment?.message}
+            slotProps={{
+              inputLabel: {
+                shrink: true,
+              },
+            }}
+          />
+        )}
       />
-      <Button variant="contained" sx={{ bgcolor: '#2c3e50' }} type="submit" onClick={handleSubmit}>
+      <Button variant="contained" sx={{ bgcolor: '#2c3e50' }} type="submit">
         Kirim Komentar
       </Button>
     </Stack>

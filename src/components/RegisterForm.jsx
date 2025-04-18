@@ -1,58 +1,90 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Link, Stack, TextField, Typography } from '@mui/material';
+import { Controller, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { useInput } from '../hooks/useInput';
+import * as yup from 'yup';
 import { asyncRegisterUser } from '../states/authUser';
 
+const registerSchema = yup.object({
+  name: yup.string().min(3).required(),
+  email: yup.string().email().required(),
+  password: yup
+    .string()
+    .min(8)
+    .matches(/[a-z]/, 'Must include at least one lowercase letter')
+    .matches(/[A-Z]/, 'Must include at least one uppercase letter')
+    .matches(/\d/, 'Must include at least one number')
+    .required(),
+});
+
 const RegisterForm = () => {
-  const [name, onNameChange] = useInput('');
-  const [email, onEmailChange] = useInput('');
-  const [password, onPasswordChange] = useInput('');
+  const {
+    handleSubmit,
+    formState: { errors },
+    control,
+  } = useForm({
+    resolver: yupResolver(registerSchema),
+    mode: 'onChange',
+  });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(asyncRegisterUser({ name, email, password }));
+  const onSubmit = (data) => {
+    dispatch(asyncRegisterUser(data));
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit}>
+    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
       <Stack spacing={2}>
         <Typography variant="h4" component="h1">
           Register
         </Typography>
-        <TextField
-          required
-          fullWidth
-          id="name"
-          label="Name"
+        <Controller
           name="name"
-          autoComplete="name"
-          value={name}
-          onChange={onNameChange}
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <TextField
+              label="Name"
+              fullWidth
+              {...field}
+              error={!!errors.name}
+              helperText={errors.name?.message}
+            />
+          )}
         />
-        <TextField
-          required
-          fullWidth
-          id="email"
-          label="Email"
+        <Controller
           name="email"
-          autoComplete="email"
-          value={email}
-          onChange={onEmailChange}
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <TextField
+              label="Email"
+              autoComplete="email"
+              fullWidth
+              {...field}
+              error={!!errors.email}
+              helperText={errors.email?.message}
+            />
+          )}
         />
-        <TextField
-          required
-          fullWidth
+        <Controller
           name="password"
-          label="Password"
-          type="password"
-          id="password"
-          autoComplete="current-password"
-          value={password}
-          onChange={onPasswordChange}
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <TextField
+              label="Password"
+              type="password"
+              autoComplete="current-password"
+              fullWidth
+              {...field}
+              error={!!errors.password}
+              helperText={errors.password?.message}
+            />
+          )}
         />
         <Button
           type="submit"

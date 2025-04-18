@@ -154,7 +154,7 @@ export const asyncToggleUpVoteThreadDetail = createAsyncThunk(
 
 export const asyncToggleDownVoteThreadDetail = createAsyncThunk(
   'threadDetail/asyncToggleDownVoteThreadDetail',
-  async ({ threadId }, { dispatch, getState }) => {
+  async (threadId, { dispatch, getState }) => {
     dispatch(showLoading());
 
     const { authUser } = getState();
@@ -177,7 +177,7 @@ export const asyncToggleDownVoteThreadDetail = createAsyncThunk(
 
 export const asyncToggleNeutralizeVoteThreadDetail = createAsyncThunk(
   'threadDetail/asyncToggleNeutralizeVoteThreadDetail',
-  async ({ threadId }, { dispatch, getState }) => {
+  async (threadId, { dispatch, getState }) => {
     dispatch(showLoading());
 
     const { authUser } = getState();

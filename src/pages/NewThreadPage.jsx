@@ -1,10 +1,10 @@
 import ProtectedLayout from '../Layouts/ProtectedLayout';
-import NewThread from '../components/NewThread';
+import NewThreadForm from '../components/NewThreadForm';
 
 const NewThreadPage = () => {
   return (
     <ProtectedLayout>
-      <NewThread />
+      <NewThreadForm />
     </ProtectedLayout>
   );
 };

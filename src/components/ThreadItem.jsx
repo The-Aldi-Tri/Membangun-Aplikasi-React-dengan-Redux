@@ -24,7 +24,9 @@ const ThreadItem = ({ thread }) => {
         onClick={() => navigate(`/threads/${thread.id}`)}
         sx={{ '&:hover': { cursor: 'pointer' } }}
       >
-        <Typography variant="body1">{thread.title}</Typography>
+        <Typography variant="h5" fontWeight="bold">
+          {thread.title}
+        </Typography>
       </Link>
       <Typography variant="body2">{truncateText(thread.body)}</Typography>
       <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
