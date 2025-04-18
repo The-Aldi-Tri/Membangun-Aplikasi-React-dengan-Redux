@@ -1,15 +1,15 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { hideLoading, showLoading } from 'react-redux-loading-bar';
-import ApiService from '../utils/api';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { hideLoading, showLoading } from "react-redux-loading-bar";
+import ApiService from "../utils/api";
 
 const threadsSlice = createSlice({
-  name: 'threads',
+  name: "threads",
   initialState: [],
   reducers: {
     receiveThreads: (state, action) => action.payload,
     addThread: (state, action) => [action.payload, ...state],
-    toggleUpVoteThread: (state, action) => {
-      return state.map((thread) => {
+    toggleUpVoteThread: (state, action) =>
+      state.map((thread) => {
         if (thread.id === action.payload.threadId) {
           return {
             ...thread,
@@ -20,13 +20,11 @@ const threadsSlice = createSlice({
               ? thread.downVotesBy.filter((id) => id !== action.payload.userId)
               : thread.downVotesBy,
           };
-        } else {
-          return thread;
         }
-      });
-    },
-    toggleDownVoteThread: (state, action) => {
-      return state.map((thread) => {
+        return thread;
+      }),
+    toggleDownVoteThread: (state, action) =>
+      state.map((thread) => {
         if (thread.id === action.payload.threadId) {
           return {
             ...thread,
@@ -37,13 +35,11 @@ const threadsSlice = createSlice({
               ? thread.downVotesBy.filter((id) => id !== action.payload.userId)
               : thread.downVotesBy.concat(action.payload.userId),
           };
-        } else {
-          return thread;
         }
-      });
-    },
-    toggleNeutralizeVoteThread: (state, action) => {
-      return state.map((thread) => {
+        return thread;
+      }),
+    toggleNeutralizeVoteThread: (state, action) =>
+      state.map((thread) => {
         if (thread.id === action.payload.threadId) {
           return {
             ...thread,
@@ -54,21 +50,31 @@ const threadsSlice = createSlice({
               ? thread.downVotesBy.filter((id) => id !== action.payload.userId)
               : thread.downVotesBy,
           };
-        } else {
-          return thread;
         }
-      });
-    },
+        return thread;
+      }),
   },
 });
 
+export const {
+  addThread,
+  receiveThreads,
+  toggleDownVoteThread,
+  toggleNeutralizeVoteThread,
+  toggleUpVoteThread,
+} = threadsSlice.actions;
+
 export const asyncAddThread = createAsyncThunk(
-  'threads/asyncAddThread',
+  "threads/asyncAddThread",
   async ({ title, body, category }, { dispatch }) => {
     dispatch(showLoading());
 
     try {
-      const { thread } = await ApiService.createThread({ title, body, category });
+      const { thread } = await ApiService.createThread({
+        title,
+        body,
+        category,
+      });
       dispatch(addThread(thread));
     } catch (error) {
       alert(error.message);
@@ -79,7 +85,7 @@ export const asyncAddThread = createAsyncThunk(
 );
 
 export const asyncToggleUpVoteThread = createAsyncThunk(
-  'threads/asyncToggleUpVoteThread',
+  "threads/asyncToggleUpVoteThread",
   async (threadId, { dispatch, getState }) => {
     dispatch(showLoading());
 
@@ -98,7 +104,7 @@ export const asyncToggleUpVoteThread = createAsyncThunk(
 );
 
 export const asyncToggleDownVoteThread = createAsyncThunk(
-  'threads/asyncToggleDownVoteThread',
+  "threads/asyncToggleDownVoteThread",
   async (threadId, { dispatch, getState }) => {
     dispatch(showLoading());
 
@@ -117,7 +123,7 @@ export const asyncToggleDownVoteThread = createAsyncThunk(
 );
 
 export const asyncToggleNeutralizeVoteThread = createAsyncThunk(
-  'threads/asyncToggleNeutralizeVoteThread',
+  "threads/asyncToggleNeutralizeVoteThread",
   async (threadId, { dispatch, getState }) => {
     dispatch(showLoading());
 
@@ -135,11 +141,4 @@ export const asyncToggleNeutralizeVoteThread = createAsyncThunk(
   },
 );
 
-export const {
-  addThread,
-  receiveThreads,
-  toggleDownVoteThread,
-  toggleNeutralizeVoteThread,
-  toggleUpVoteThread,
-} = threadsSlice.actions;
 export default threadsSlice.reducer;

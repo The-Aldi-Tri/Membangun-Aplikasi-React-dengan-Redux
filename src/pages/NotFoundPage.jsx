@@ -1,12 +1,13 @@
-import NotFound from '../components/NotFound';
-import BaseLayout from '../Layouts/BaseLayout';
+import React from "react";
+import NotFound from "../components/NotFound";
+import BaseLayout from "../Layouts/BaseLayout";
 
-const NotFoundPage = () => {
+function NotFoundPage() {
   return (
     <BaseLayout>
       <NotFound />
     </BaseLayout>
   );
-};
+}
 
 export default NotFoundPage;

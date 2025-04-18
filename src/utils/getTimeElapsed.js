@@ -2,6 +2,10 @@ const getTimeElapsed = (timestamp) => {
   const now = new Date();
   const past = new Date(timestamp);
 
+  if (Number.isNaN(past.getTime)) {
+    return "Waktu tidak diketahui";
+  }
+
   const seconds = Math.floor((now - past) / 1000);
   if (seconds < 60) {
     return `${seconds} detik lalu`;
@@ -31,4 +35,4 @@ const getTimeElapsed = (timestamp) => {
   return `${years} tahun lalu`;
 };
 
-export { getTimeElapsed };
+export default getTimeElapsed;

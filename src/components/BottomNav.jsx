@@ -1,11 +1,16 @@
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import ForumIcon from '@mui/icons-material/Forum';
-import LeaderboardIcon from '@mui/icons-material/Leaderboard';
-import { AppBar, BottomNavigation, BottomNavigationAction } from '@mui/material';
-import { useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router';
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import ForumIcon from "@mui/icons-material/Forum";
+import LeaderboardIcon from "@mui/icons-material/Leaderboard";
+import {
+  AppBar,
+  BottomNavigation,
+  BottomNavigationAction,
+} from "@mui/material";
+import React from "react";
+import { useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router";
 
-const BottomNav = () => {
+function BottomNav() {
   const authUser = useSelector((state) => state.authUser);
 
   const navigate = useNavigate();
@@ -14,7 +19,7 @@ const BottomNav = () => {
   const currentIndex = location.pathname;
 
   return (
-    <AppBar position="fixed" sx={{ top: 'auto', bottom: 0 }}>
+    <AppBar position="fixed" sx={{ top: "auto", bottom: 0 }}>
       <BottomNavigation
         showLabels
         value={currentIndex}
@@ -22,7 +27,11 @@ const BottomNav = () => {
           navigate(newValue);
         }}
       >
-        <BottomNavigationAction label="Threads" value="/" icon={<ForumIcon />} />
+        <BottomNavigationAction
+          label="Threads"
+          value="/"
+          icon={<ForumIcon />}
+        />
         {authUser && (
           <BottomNavigationAction
             label="Diskusi Baru"
@@ -38,6 +47,6 @@ const BottomNav = () => {
       </BottomNavigation>
     </AppBar>
   );
-};
+}
 
 export default BottomNav;

@@ -1,10 +1,10 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import BaseLayout from '../Layouts/BaseLayout';
-import Leaderboard from '../components/Leaderboard';
-import { asyncReceiveLeaderboards } from '../states/leaderboards';
+import React from "react";
+import { useDispatch } from "react-redux";
+import BaseLayout from "../Layouts/BaseLayout";
+import Leaderboard from "../components/Leaderboard";
+import { asyncReceiveLeaderboards } from "../states/leaderboards";
 
-const LeaderboardPage = () => {
+function LeaderboardPage() {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -16,6 +16,6 @@ const LeaderboardPage = () => {
       <Leaderboard />
     </BaseLayout>
   );
-};
+}
 
 export default LeaderboardPage;

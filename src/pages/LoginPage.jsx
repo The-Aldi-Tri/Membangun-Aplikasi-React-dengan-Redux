@@ -1,16 +1,16 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
-import BaseLayout from '../Layouts/BaseLayout';
-import LoginForm from '../components/LoginForm';
+import React from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import BaseLayout from "../Layouts/BaseLayout";
+import LoginForm from "../components/LoginForm";
 
-const LoginPage = () => {
+function LoginPage() {
   const authUser = useSelector((state) => state.authUser);
   const navigate = useNavigate();
 
   React.useEffect(() => {
     if (authUser) {
-      navigate('/');
+      navigate("/");
     }
   }, [authUser, navigate]);
 
@@ -19,6 +19,6 @@ const LoginPage = () => {
       <LoginForm />
     </BaseLayout>
   );
-};
+}
 
 export default LoginPage;

@@ -1,14 +1,14 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router';
-import BaseLayout from '../Layouts/BaseLayout';
-import ThreadDetail from '../components/ThreadDetail';
-import { asyncReceiveThreadDetail } from '../states/threadDetail';
+import React from "react";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router";
+import BaseLayout from "../Layouts/BaseLayout";
+import ThreadDetail from "../components/ThreadDetail";
+import { asyncReceiveThreadDetail } from "../states/threadDetail";
 
-const ThreadDetailPage = () => {
+function ThreadDetailPage() {
   const dispatch = useDispatch();
 
-  let { threadId } = useParams();
+  const { threadId } = useParams();
 
   React.useEffect(() => {
     dispatch(asyncReceiveThreadDetail(threadId));
@@ -19,6 +19,6 @@ const ThreadDetailPage = () => {
       <ThreadDetail />
     </BaseLayout>
   );
-};
+}
 
 export default ThreadDetailPage;

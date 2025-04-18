@@ -1,125 +1,125 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { hideLoading, showLoading } from 'react-redux-loading-bar';
-import ApiService from '../utils/api';
-import { toggleDownVoteThread, toggleNeutralizeVoteThread, toggleUpVoteThread } from './threads';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { hideLoading, showLoading } from "react-redux-loading-bar";
+import ApiService from "../utils/api";
+import {
+  toggleDownVoteThread,
+  toggleNeutralizeVoteThread,
+  toggleUpVoteThread,
+} from "./threads";
 
 const threadDetailSlice = createSlice({
-  name: 'threadDetail',
+  name: "threadDetail",
   initialState: null,
   reducers: {
     receiveThreadDetail: (state, action) => action.payload,
     clearThreadDetail: () => null,
-    toggleUpVoteThreadDetail: (state, action) => {
-      return {
-        ...state,
-        upVotesBy: state.upVotesBy.includes(action.payload.userId)
-          ? state.upVotesBy.filter((id) => id !== action.payload.userId)
-          : state.upVotesBy.concat(action.payload.userId),
-        downVotesBy: state.downVotesBy.includes(action.payload.userId)
-          ? state.downVotesBy.filter((id) => id !== action.payload.userId)
-          : state.downVotesBy,
-      };
-    },
-    toggleDownVoteThreadDetail: (state, action) => {
-      return {
-        ...state,
-        upVotesBy: state.upVotesBy.includes(action.payload.userId)
-          ? state.upVotesBy.filter((id) => id !== action.payload.userId)
-          : state.upVotesBy,
-        downVotesBy: state.downVotesBy.includes(action.payload.userId)
-          ? state.downVotesBy.filter((id) => id !== action.payload.userId)
-          : state.downVotesBy.concat(action.payload.userId),
-      };
-    },
-    toggleNeutralizeVoteThreadDetail: (state, action) => {
-      return {
-        ...state,
-        upVotesBy: state.upVotesBy.includes(action.payload.userId)
-          ? state.upVotesBy.filter((id) => id !== action.payload.userId)
-          : state.upVotesBy,
-        downVotesBy: state.downVotesBy.includes(action.payload.userId)
-          ? state.downVotesBy.filter((id) => id !== action.payload.userId)
-          : state.downVotesBy,
-      };
-    },
-    addComment: (state, action) => {
-      return {
-        ...state,
-        comments: [action.payload, ...state.comments],
-      };
-    },
-    toggleUpVoteComment: (state, action) => {
-      return {
-        ...state,
-        comments: state.comments.map((comment) => {
-          if (comment.id === action.payload.commentId) {
-            return {
-              ...comment,
-              upVotesBy: comment.upVotesBy.includes(action.payload.userId)
-                ? comment.upVotesBy.filter((id) => id !== action.payload.userId)
-                : comment.upVotesBy.concat(action.payload.userId),
-              downVotesBy: comment.downVotesBy.includes(action.payload.userId)
-                ? comment.downVotesBy.filter((id) => id !== action.payload.userId)
-                : comment.downVotesBy,
-            };
-          } else {
-            return comment;
-          }
-        }),
-      };
-    },
-    toggleDownVoteComment: (state, action) => {
-      return {
-        ...state,
-        comments: state.comments.map((comment) => {
-          if (comment.id === action.payload.commentId) {
-            return {
-              ...comment,
-              upVotesBy: comment.upVotesBy.includes(action.payload.userId)
-                ? comment.upVotesBy.filter((id) => id !== action.payload.userId)
-                : comment.upVotesBy,
-              downVotesBy: comment.downVotesBy.includes(action.payload.userId)
-                ? comment.downVotesBy.filter((id) => id !== action.payload.userId)
-                : comment.downVotesBy.concat(action.payload.userId),
-            };
-          } else {
-            return comment;
-          }
-        }),
-      };
-    },
-    toggleNeutralizeVoteComment: (state, action) => {
-      return {
-        ...state,
-        comments: state.comments.map((comment) => {
-          if (comment.id === action.payload.commentId) {
-            return {
-              ...comment,
-              upVotesBy: comment.upVotesBy.includes(action.payload.userId)
-                ? comment.upVotesBy.filter((id) => id !== action.payload.userId)
-                : comment.upVotesBy,
-              downVotesBy: comment.downVotesBy.includes(action.payload.userId)
-                ? comment.downVotesBy.filter((id) => id !== action.payload.userId)
-                : comment.downVotesBy,
-            };
-          } else {
-            return comment;
-          }
-        }),
-      };
-    },
+    toggleUpVoteThreadDetail: (state, action) => ({
+      ...state,
+      upVotesBy: state.upVotesBy.includes(action.payload.userId)
+        ? state.upVotesBy.filter((id) => id !== action.payload.userId)
+        : state.upVotesBy.concat(action.payload.userId),
+      downVotesBy: state.downVotesBy.includes(action.payload.userId)
+        ? state.downVotesBy.filter((id) => id !== action.payload.userId)
+        : state.downVotesBy,
+    }),
+    toggleDownVoteThreadDetail: (state, action) => ({
+      ...state,
+      upVotesBy: state.upVotesBy.includes(action.payload.userId)
+        ? state.upVotesBy.filter((id) => id !== action.payload.userId)
+        : state.upVotesBy,
+      downVotesBy: state.downVotesBy.includes(action.payload.userId)
+        ? state.downVotesBy.filter((id) => id !== action.payload.userId)
+        : state.downVotesBy.concat(action.payload.userId),
+    }),
+    toggleNeutralizeVoteThreadDetail: (state, action) => ({
+      ...state,
+      upVotesBy: state.upVotesBy.includes(action.payload.userId)
+        ? state.upVotesBy.filter((id) => id !== action.payload.userId)
+        : state.upVotesBy,
+      downVotesBy: state.downVotesBy.includes(action.payload.userId)
+        ? state.downVotesBy.filter((id) => id !== action.payload.userId)
+        : state.downVotesBy,
+    }),
+    addComment: (state, action) => ({
+      ...state,
+      comments: [action.payload, ...state.comments],
+    }),
+    toggleUpVoteComment: (state, action) => ({
+      ...state,
+      comments: state.comments.map((comment) => {
+        if (comment.id === action.payload.commentId) {
+          return {
+            ...comment,
+            upVotesBy: comment.upVotesBy.includes(action.payload.userId)
+              ? comment.upVotesBy.filter((id) => id !== action.payload.userId)
+              : comment.upVotesBy.concat(action.payload.userId),
+            downVotesBy: comment.downVotesBy.includes(action.payload.userId)
+              ? comment.downVotesBy.filter((id) => id !== action.payload.userId)
+              : comment.downVotesBy,
+          };
+        }
+        return comment;
+      }),
+    }),
+    toggleDownVoteComment: (state, action) => ({
+      ...state,
+      comments: state.comments.map((comment) => {
+        if (comment.id === action.payload.commentId) {
+          return {
+            ...comment,
+            upVotesBy: comment.upVotesBy.includes(action.payload.userId)
+              ? comment.upVotesBy.filter((id) => id !== action.payload.userId)
+              : comment.upVotesBy,
+            downVotesBy: comment.downVotesBy.includes(action.payload.userId)
+              ? comment.downVotesBy.filter((id) => id !== action.payload.userId)
+              : comment.downVotesBy.concat(action.payload.userId),
+          };
+        }
+        return comment;
+      }),
+    }),
+    toggleNeutralizeVoteComment: (state, action) => ({
+      ...state,
+      comments: state.comments.map((comment) => {
+        if (comment.id === action.payload.commentId) {
+          return {
+            ...comment,
+            upVotesBy: comment.upVotesBy.includes(action.payload.userId)
+              ? comment.upVotesBy.filter((id) => id !== action.payload.userId)
+              : comment.upVotesBy,
+            downVotesBy: comment.downVotesBy.includes(action.payload.userId)
+              ? comment.downVotesBy.filter((id) => id !== action.payload.userId)
+              : comment.downVotesBy,
+          };
+        }
+        return comment;
+      }),
+    }),
   },
 });
 
+export const {
+  receiveThreadDetail,
+  clearThreadDetail,
+  toggleUpVoteThreadDetail,
+  toggleDownVoteThreadDetail,
+  toggleNeutralizeVoteThreadDetail,
+  addComment,
+  toggleUpVoteComment,
+  toggleDownVoteComment,
+  toggleNeutralizeVoteComment,
+} = threadDetailSlice.actions;
+
 export const asyncReceiveThreadDetail = createAsyncThunk(
-  'threadDetail/asyncReceiveThreadDetail',
+  "threadDetail/asyncReceiveThreadDetail",
   async (threadId, { dispatch }) => {
     dispatch(showLoading());
 
     dispatch(clearThreadDetail());
 
     try {
-      const { detailThread: threadDetail } = await ApiService.getThreadById(threadId);
+      const { detailThread: threadDetail } =
+        await ApiService.getThreadById(threadId);
       dispatch(receiveThreadDetail(threadDetail));
     } catch (error) {
       alert(error.message);
@@ -130,7 +130,7 @@ export const asyncReceiveThreadDetail = createAsyncThunk(
 );
 
 export const asyncToggleUpVoteThreadDetail = createAsyncThunk(
-  'threadDetail/asyncToggleUpVoteThreadDetail',
+  "threadDetail/asyncToggleUpVoteThreadDetail",
   async (threadId, { dispatch, getState }) => {
     dispatch(showLoading());
 
@@ -153,7 +153,7 @@ export const asyncToggleUpVoteThreadDetail = createAsyncThunk(
 );
 
 export const asyncToggleDownVoteThreadDetail = createAsyncThunk(
-  'threadDetail/asyncToggleDownVoteThreadDetail',
+  "threadDetail/asyncToggleDownVoteThreadDetail",
   async (threadId, { dispatch, getState }) => {
     dispatch(showLoading());
 
@@ -176,7 +176,7 @@ export const asyncToggleDownVoteThreadDetail = createAsyncThunk(
 );
 
 export const asyncToggleNeutralizeVoteThreadDetail = createAsyncThunk(
-  'threadDetail/asyncToggleNeutralizeVoteThreadDetail',
+  "threadDetail/asyncToggleNeutralizeVoteThreadDetail",
   async (threadId, { dispatch, getState }) => {
     dispatch(showLoading());
 
@@ -199,7 +199,7 @@ export const asyncToggleNeutralizeVoteThreadDetail = createAsyncThunk(
 );
 
 export const asyncAddComment = createAsyncThunk(
-  'threadDetail/asyncAddComment',
+  "threadDetail/asyncAddComment",
   async ({ threadId, content }, { dispatch }) => {
     dispatch(showLoading());
 
@@ -215,7 +215,7 @@ export const asyncAddComment = createAsyncThunk(
 );
 
 export const asyncToggleUpVoteComment = createAsyncThunk(
-  'threadDetail/asyncToggleUpVoteComment',
+  "threadDetail/asyncToggleUpVoteComment",
   async ({ threadId, commentId }, { dispatch, getState }) => {
     dispatch(showLoading());
 
@@ -236,7 +236,7 @@ export const asyncToggleUpVoteComment = createAsyncThunk(
 );
 
 export const asyncToggleDownVoteComment = createAsyncThunk(
-  'threadDetail/asyncToggleDownVoteComment',
+  "threadDetail/asyncToggleDownVoteComment",
   async ({ threadId, commentId }, { dispatch, getState }) => {
     dispatch(showLoading());
 
@@ -257,7 +257,7 @@ export const asyncToggleDownVoteComment = createAsyncThunk(
 );
 
 export const asyncToggleNeutralizeVoteComment = createAsyncThunk(
-  'threadDetail/asyncToggleNeutralizeVoteComment',
+  "threadDetail/asyncToggleNeutralizeVoteComment",
   async ({ threadId, commentId }, { dispatch, getState }) => {
     dispatch(showLoading());
 
@@ -277,15 +277,4 @@ export const asyncToggleNeutralizeVoteComment = createAsyncThunk(
   },
 );
 
-export const {
-  receiveThreadDetail,
-  clearThreadDetail,
-  toggleUpVoteThreadDetail,
-  toggleDownVoteThreadDetail,
-  toggleNeutralizeVoteThreadDetail,
-  addComment,
-  toggleUpVoteComment,
-  toggleDownVoteComment,
-  toggleNeutralizeVoteComment,
-} = threadDetailSlice.actions;
 export default threadDetailSlice.reducer;

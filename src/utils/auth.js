@@ -1,10 +1,7 @@
 const AuthService = {
-  getAccessToken: () => {
-    return localStorage.getItem('accessToken');
-  },
-  putAccessToken: (accessToken) => {
-    return localStorage.setItem('accessToken', accessToken);
-  },
+  getAccessToken: () => localStorage.getItem("accessToken"),
+  putAccessToken: (accessToken) =>
+    localStorage.setItem("accessToken", accessToken),
 };
 
 export default AuthService;

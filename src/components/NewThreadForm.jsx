@@ -1,10 +1,11 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, Stack, TextField, Typography } from '@mui/material';
-import { Controller, useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router';
-import * as yup from 'yup';
-import { asyncAddThread } from '../states/threads';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import React from "react";
+import { Controller, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import * as yup from "yup";
+import { asyncAddThread } from "../states/threads";
 
 const newThreadSchema = yup.object({
   title: yup.string().min(3).required(),
@@ -12,14 +13,14 @@ const newThreadSchema = yup.object({
   body: yup.string().min(3).required(),
 });
 
-const NewThreadForm = () => {
+function NewThreadForm() {
   const {
     handleSubmit,
     formState: { errors },
     control,
   } = useForm({
     resolver: yupResolver(newThreadSchema),
-    mode: 'onChange',
+    mode: "onChange",
   });
 
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const NewThreadForm = () => {
 
   const onSubmit = (data) => {
     dispatch(asyncAddThread(data));
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -80,12 +81,17 @@ const NewThreadForm = () => {
             />
           )}
         />
-        <Button type="submit" fullWidth variant="contained" sx={{ bgcolor: '#2c3e50' }}>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ bgcolor: "#2c3e50" }}
+        >
           Buat
         </Button>
       </Stack>
     </Box>
   );
-};
+}
 
 export default NewThreadForm;

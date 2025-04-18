@@ -1,18 +1,19 @@
-import { Chip, Stack, Typography } from '@mui/material';
-import parse from 'html-react-parser';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router';
+import { Chip, Stack, Typography } from "@mui/material";
+import parse from "html-react-parser";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router";
 import {
   asyncToggleDownVoteThreadDetail,
   asyncToggleNeutralizeVoteThreadDetail,
   asyncToggleUpVoteThreadDetail,
-} from '../states/threadDetail';
-import AuthorAndTimeElapsed from './AuthorAndTimeElapsed';
-import Comment from './Comment';
-import CommentForm from './CommentForm';
-import LikeDislikeButton from './LikeDislikeButton';
+} from "../states/threadDetail";
+import AuthorAndTimeElapsed from "./AuthorAndTimeElapsed";
+import Comment from "./Comment";
+import CommentForm from "./CommentForm";
+import LikeDislikeButton from "./LikeDislikeButton";
 
-const ThreadDetail = () => {
+function ThreadDetail() {
   const threadDetail = useSelector((state) => state.threadDetail);
   const authUser = useSelector((state) => state.authUser);
   const dispatch = useDispatch();
@@ -25,20 +26,26 @@ const ThreadDetail = () => {
     <Stack spacing={2}>
       <Stack spacing={1}>
         <Chip
-          label={'#' + threadDetail.category}
+          label={`#${threadDetail.category}`}
           variant="outlined"
-          sx={{ width: 'fit-content' }}
+          sx={{ width: "fit-content" }}
         />
         <Typography variant="h4" fontWeight="bold">
           {threadDetail.title}
         </Typography>
-        <Typography variant="body1">{parse(threadDetail.body)}</Typography>
-        <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
+        <Typography variant="body1" component="div">
+          {parse(threadDetail.body)}
+        </Typography>
+        <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
           <LikeDislikeButton
             upVotes={threadDetail.upVotesBy}
             downVotes={threadDetail.downVotesBy}
-            onUpVote={() => dispatch(asyncToggleUpVoteThreadDetail(threadDetail.id))}
-            onDownVote={() => dispatch(asyncToggleDownVoteThreadDetail(threadDetail.id))}
+            onUpVote={() =>
+              dispatch(asyncToggleUpVoteThreadDetail(threadDetail.id))
+            }
+            onDownVote={() =>
+              dispatch(asyncToggleDownVoteThreadDetail(threadDetail.id))
+            }
             onNeutralizeVote={() =>
               dispatch(asyncToggleNeutralizeVoteThreadDetail(threadDetail.id))
             }
@@ -55,19 +62,21 @@ const ThreadDetail = () => {
           <CommentForm />
         ) : (
           <Stack direction="row" spacing={0.5} alignItems="center">
-            <Link to={'/login'}>Login</Link>
+            <Link to="/login">Login</Link>
             <Typography>untuk memberi komentar</Typography>
           </Stack>
         )}
       </Stack>
       <Stack spacing={1}>
-        <Typography variant="h6">{'Komentar (' + threadDetail.comments.length + ')'}</Typography>
-        {threadDetail.comments.map((comment, index) => (
-          <Comment key={index} comment={comment} />
+        <Typography variant="h6">
+          {`Komentar (${threadDetail.comments.length})`}
+        </Typography>
+        {threadDetail.comments.map((comment) => (
+          <Comment key={comment.id} comment={comment} />
         ))}
       </Stack>
     </Stack>
   );
-};
+}
 
 export default ThreadDetail;

@@ -1,16 +1,16 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
-import BaseLayout from '../Layouts/BaseLayout';
-import RegisterForm from '../components/RegisterForm';
+import React from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import BaseLayout from "../Layouts/BaseLayout";
+import RegisterForm from "../components/RegisterForm";
 
-const RegisterPage = () => {
+function RegisterPage() {
   const authUser = useSelector((state) => state.authUser);
   const navigate = useNavigate();
 
   React.useEffect(() => {
     if (authUser) {
-      navigate('/');
+      navigate("/");
     }
   }, [authUser, navigate]);
 
@@ -19,6 +19,6 @@ const RegisterPage = () => {
       <RegisterForm />
     </BaseLayout>
   );
-};
+}
 
 export default RegisterPage;

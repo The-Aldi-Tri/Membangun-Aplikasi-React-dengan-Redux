@@ -1,11 +1,11 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { hideLoading, showLoading } from 'react-redux-loading-bar';
-import ApiService from '../utils/api';
-import AuthService from '../utils/auth';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { hideLoading, showLoading } from "react-redux-loading-bar";
+import ApiService from "../utils/api";
+import AuthService from "../utils/auth";
 
 // Slice
 const authUserSlice = createSlice({
-  name: 'authUser',
+  name: "authUser",
   initialState: null,
   reducers: {
     setAuthUser: (state, action) => action.payload,
@@ -13,9 +13,12 @@ const authUserSlice = createSlice({
   },
 });
 
+// Export actions
+export const { setAuthUser, unsetAuthUser } = authUserSlice.actions;
+
 // Async Thunks
 export const asyncSetAuthUser = createAsyncThunk(
-  'authUser/asyncSetAuthUser',
+  "authUser/asyncSetAuthUser",
   async ({ email, password }, { dispatch }) => {
     dispatch(showLoading());
 
@@ -33,19 +36,19 @@ export const asyncSetAuthUser = createAsyncThunk(
 );
 
 export const asyncUnsetAuthUser = createAsyncThunk(
-  'authUser/asyncUnsetAuthUser',
+  "authUser/asyncUnsetAuthUser",
   async (_, { dispatch }) => {
     dispatch(showLoading());
 
     dispatch(unsetAuthUser(null));
-    AuthService.putAccessToken('');
+    AuthService.putAccessToken("");
 
     dispatch(hideLoading());
   },
 );
 
 export const asyncRegisterUser = createAsyncThunk(
-  'authUser/asyncRegisterUser',
+  "authUser/asyncRegisterUser",
   async ({ name, email, password }, { dispatch }) => {
     dispatch(showLoading());
 
@@ -63,6 +66,5 @@ export const asyncRegisterUser = createAsyncThunk(
   },
 );
 
-// Export actions and reducer
-export const { setAuthUser, unsetAuthUser } = authUserSlice.actions;
+// Export reducer
 export default authUserSlice.reducer;

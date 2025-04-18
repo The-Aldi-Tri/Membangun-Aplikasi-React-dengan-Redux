@@ -1,11 +1,12 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { hideLoading, showLoading } from 'react-redux-loading-bar';
-import ApiService from '../utils/api';
-import { receiveThreads } from './threads';
-import { receiveUsers } from './users';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { hideLoading, showLoading } from "react-redux-loading-bar";
+import ApiService from "../utils/api";
+import { receiveThreads } from "./threads";
+import { receiveUsers } from "./users";
 
+// eslint-disable-next-line import/prefer-default-export
 export const asyncPopulateThreadsAndUsers = createAsyncThunk(
-  'shared/asyncPopulateThreadsAndUsers',
+  "shared/asyncPopulateThreadsAndUsers",
   async (_, { dispatch }) => {
     dispatch(showLoading());
 

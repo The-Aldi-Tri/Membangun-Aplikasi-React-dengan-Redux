@@ -1,15 +1,17 @@
-import { Box, Container, Paper } from '@mui/material';
-import LoadingBar from 'react-redux-loading-bar';
-import BottomNav from '../components/BottomNav';
-import Header from '../components/Header';
+import { Box, Container, Paper } from "@mui/material";
+import PropTypes from "prop-types";
+import React from "react";
+import LoadingBar from "react-redux-loading-bar";
+import BottomNav from "../components/BottomNav";
+import Header from "../components/Header";
 
-const BaseLayout = ({ children }) => {
+function BaseLayout({ children }) {
   return (
     <Box
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
       }}
     >
       <LoadingBar />
@@ -22,6 +24,10 @@ const BaseLayout = ({ children }) => {
       <BottomNav />
     </Box>
   );
+}
+
+BaseLayout.propTypes = {
+  children: PropTypes.element.isRequired,
 };
 
 export default BaseLayout;

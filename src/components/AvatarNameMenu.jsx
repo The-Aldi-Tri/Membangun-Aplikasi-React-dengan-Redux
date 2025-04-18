@@ -1,12 +1,20 @@
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { Avatar, IconButton, ListItemIcon, Menu, MenuItem, Stack, Typography } from '@mui/material';
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
-import { asyncUnsetAuthUser } from '../states/authUser';
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import LogoutIcon from "@mui/icons-material/Logout";
+import {
+  Avatar,
+  IconButton,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  Stack,
+  Typography,
+} from "@mui/material";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { asyncUnsetAuthUser } from "../states/authUser";
 
-const AvatarNameMenu = () => {
+function AvatarNameMenu() {
   const authUser = useSelector((state) => state.authUser);
 
   const dispatch = useDispatch();
@@ -24,12 +32,12 @@ const AvatarNameMenu = () => {
   const handleLogout = async () => {
     dispatch(asyncUnsetAuthUser());
     handleClose();
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
-    <Stack direction="row" alignItems={'center'}>
-      <Avatar sx={{ height: '1.5em', width: '1.5em' }} src={authUser.avatar} />
+    <Stack direction="row" alignItems="center">
+      <Avatar sx={{ height: "1.5em", width: "1.5em" }} src={authUser.avatar} />
       <IconButton color="inherit" onClick={handleClick}>
         <Typography>{authUser.name}</Typography>
         <ArrowDropDownIcon />
@@ -38,8 +46,8 @@ const AvatarNameMenu = () => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
@@ -50,6 +58,6 @@ const AvatarNameMenu = () => {
       </Menu>
     </Stack>
   );
-};
+}
 
 export default AvatarNameMenu;
